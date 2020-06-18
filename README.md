@@ -16,7 +16,7 @@ Cors-Headers: to allow frontend to talk to backend
 Whitenoise: for serving static files (primarily, the front end build)
 Gunicorn: a production-ready python WSGI HTTP server
 
-
+---
 
 This project was bootstrapped with Create React App.
 
