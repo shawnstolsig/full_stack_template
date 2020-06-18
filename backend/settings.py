@@ -25,7 +25,7 @@ SECRET_KEY = 'o88rq1%m06*4dp5un5w3$kd4+)si5+h366ipsl48py3*4b_v@a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost']   #add heroku app url here as well
+ALLOWED_HOSTS = ['fullstack-template-test.herokuapp.com', 'localhost']   #update heroku app url here as well
 
 
 # Application definition
