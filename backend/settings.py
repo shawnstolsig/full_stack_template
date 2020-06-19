@@ -25,7 +25,7 @@ SECRET_KEY = 'o88rq1%m06*4dp5un5w3$kd4+)si5+h366ipsl48py3*4b_v@a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fullstack-template-test.herokuapp.com', 'localhost']   #update heroku app url here as well
+ALLOWED_HOSTS = ['fullstack-template-test.herokuapp.com', 'localhost', '127.0.0.1']   #update heroku app url here as well
 
 
 # Application definition
@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'corsheaders',
+    'djoser',
+    'rest_framework',
+    'rest_framework_simplejwt',
 
     'api.apps.ApiConfig',
 ]
@@ -139,3 +142,10 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
 ]
+
+# require that users are authenticated to access API
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}

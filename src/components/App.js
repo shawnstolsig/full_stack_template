@@ -1,34 +1,27 @@
-import React from 'react';
-import axios from 'axios'
+// package imports
+import React from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom'
+
+// project imports
+import Navbar from './Navbar'
+import Home from './Home'
+import Login from './Login'
 
 function App() {
-  // some state for testing response from backend
-  const [message, setMessage] = React.useState('Init')
-
-  // on initial render, retrieve message from backend
-  React.useEffect(() => {
-    axios({
-      method: 'get',
-      url: `${process.env.REACT_APP_API_URL}api/v1/`,
-      data: {},
-      headers: {},
-    })
-    .then(response => {
-      setMessage(response.data.message)
-    })
-    .catch(error => { console.log(error) })
-  }, [])
-
   return (
-    <div>
-      <h1>Hello world.</h1>
-      {process.env.REACT_APP_API_URL
-        ? <p>Using development api url</p>
-        : <p>Using production api url</p>
-      }
-      <h2>From backend: {message}</h2>
-    </div>
+    <Router>
+      <Navbar />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route render={()=><h1>404: Page Not Found</h1>} />
+      </Switch>
+    </Router>
   );
 }
 
-export default App;
+export default App
