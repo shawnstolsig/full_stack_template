@@ -6,6 +6,9 @@ export default function authReducer(state = null, action) {
       return { 
         id: action.id,
         username: action.username,
+        expiresAt: action.expiresAt,
+        access: action.access,
+        refresh: action.refresh
       }
     case LOGOUT_USER:
       return null

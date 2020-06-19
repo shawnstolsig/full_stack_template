@@ -34,3 +34,25 @@ export function register({username, password}) {
       },
     })
 }
+
+// for autologin: get user information using access token
+export function getUserFromToken(access) {
+  return axios({
+    method: 'get',
+    url: `${baseApiUrl}auth/users/me/`,
+    headers: {
+      authorization: `Bearer ${access}`
+    },
+  })
+}
+
+// function for updating access token with provided refresh token
+export function refreshToken(refresh){
+  return axios({
+    method: 'post',
+    url: `${baseApiUrl}auth/hwt/refresh/`,
+    data: {
+      refresh
+    },
+  })
+}

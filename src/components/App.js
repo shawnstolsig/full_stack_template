@@ -1,5 +1,6 @@
 // package imports
 import React from 'react'
+import { connect } from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,8 +11,16 @@ import {
 import Navbar from './Navbar'
 import Home from './Home'
 import Login from './Login'
+import { handleAutoLogin } from '../actions/auth'
 
-function App() {
+function App({dispatch}) {
+
+  // check for token to autologin
+  React.useEffect(() => {
+    console.log("autologin useEffect")
+    dispatch(handleAutoLogin())
+  }, [dispatch])
+
   return (
     <Router>
       <Navbar />
@@ -24,4 +33,8 @@ function App() {
   );
 }
 
-export default App
+function mapStateToProps(state){
+  return {}
+}
+
+export default connect(mapStateToProps)(App)

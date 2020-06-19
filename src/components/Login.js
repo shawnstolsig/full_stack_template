@@ -19,8 +19,8 @@ function Login({dispatch, history}) {
     // dispatch action to store
     dispatch(handleLoginUser({
       username, 
-      password
-    }))
+      password,
+    }, history))
 
   }
 
