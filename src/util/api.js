@@ -16,11 +16,6 @@ export function login({ username, password }) {
       password
     },
   })
-    // // return tokens
-    // .then(response => {
-    //   console.log(response)
-    // })
-    // .catch(error => { console.log(error) })
 }
 
 export function register({username, password}) {
@@ -46,7 +41,7 @@ export function getUserFromToken(access) {
   })
 }
 
-// function for updating access token with provided refresh token
+// function for updating access token with provided refresh token 
 export function refreshToken(refresh){
   return axios({
     method: 'post',

@@ -1,5 +1,5 @@
 // project imports
-import { login, getUserFromToken, refreshToken } from '../util/api'
+import { login, register, getUserFromToken } from '../util/api'
 import jwt_decode from 'jwt-decode'
 
 // action types
@@ -114,6 +114,23 @@ export function handleAutoLogin() {
         localStorage.removeItem('refresh')
       }
     }
+  }
+}
+
+export function handleRegisterUser({username, password}, history){
+  return (dispatch) => {
+    register({username, password})
+    .then(() => {
+      // login user if successfully registered
+      dispatch(handleLoginUser({username, password}, history))
+    })
+    .catch((error) => {
+      console.log(error.response)
+      const errorType = Object.keys(error.response.data)[0]
+      let message = 'Error with registration: \n'
+      error.response.data[errorType].forEach((x) => message += x + '\n')
+      alert(message)
+    })
   }
 }
 
