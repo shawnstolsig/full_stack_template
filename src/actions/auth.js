@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode'
 export const LOGIN_USER = 'LOGIN_USER'
 export const LOGOUT_USER = 'LOGOUT_USER'
 
-// action creators
+// action creator: login user
 function loginUser(id, username, expiresAt, access, refresh) {
   return {
     type: LOGIN_USER,
@@ -18,14 +18,14 @@ function loginUser(id, username, expiresAt, access, refresh) {
   }
 }
 
+// action creator: logout user
 function logoutUser() {
   return {
     type: LOGOUT_USER
   }
 }
 
-// helper for decoding JWT.  
-// takes in tokens together in an object, returns decoded user_id and expiration time
+// helper: decoding JSON Web Tokens
 function helperJWT(access, refresh) {
   const decoded = jwt_decode(access)
   return {
@@ -55,16 +55,18 @@ export function handleLoginUser({ username, password }, history) {
         localStorage.setItem('access', access)
         localStorage.setItem('refresh', refresh)
 
-        // redirect??
+        // redirect to home
         history.push('/')
       })
-      .catch((res) => {
-        alert("Error logging in.")
-        console.error(res)
+      .catch((error) => {
+        console.log("Error logging in: ")
+        console.log(error.response)
+        alert(error.response.data.detail)  
       })
   }
 }
 
+// handle logout (dispatch logout action, remove tokens from localStorage)
 export function handleLogoutUser() {
   return (dispatch) => {
     // set authedUser to null
@@ -76,6 +78,7 @@ export function handleLogoutUser() {
   }
 }
 
+// handle auto login (check for non-expired tokens in local storage, then get user information)
 export function handleAutoLogin() {
   return (dispatch) => {
     // get tokens from local storage
@@ -86,7 +89,7 @@ export function handleAutoLogin() {
       // decode tokens
       const { userId, expiresAt } = helperJWT(access, refresh)
 
-      // only login if token isn't expired, or won't expire in specified buffer time
+      // if token hasn't expired, or won't expire in specified buffer time, then login
       const bufferTimeInMin = 10
       if (expiresAt - Date.now() / 1000 > bufferTimeInMin * 60) {
 
@@ -107,6 +110,7 @@ export function handleAutoLogin() {
             alert("Error getting user details for autologin.  Please login manually.")
           })
       }
+
       // remove tokens from localStorage since they have expired
       else {
         // delete tokens from local storage
@@ -117,6 +121,7 @@ export function handleAutoLogin() {
   }
 }
 
+// handle user registration (given validated username and password, create a user and login)
 export function handleRegisterUser({username, password}, history){
   return (dispatch) => {
     register({username, password})
@@ -125,6 +130,7 @@ export function handleRegisterUser({username, password}, history){
       dispatch(handleLoginUser({username, password}, history))
     })
     .catch((error) => {
+      console.log("Error registering: ")
       console.log(error.response)
       const errorType = Object.keys(error.response.data)[0]
       let message = 'Error with registration: \n'
@@ -133,5 +139,3 @@ export function handleRegisterUser({username, password}, history){
     })
   }
 }
-
-// auto logout?

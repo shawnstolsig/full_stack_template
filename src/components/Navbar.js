@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 // project imports
 import { handleLogoutUser } from '../actions/auth'
 
+// some styles for active link
 const styles = {
   active: {
     fontWeight: 'bold'

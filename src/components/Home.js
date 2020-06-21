@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 function Home() {
   // some state for testing response from backend
-  const [message, setMessage] = React.useState('Init')
+  const [message, setMessage] = React.useState('Backend not yet connected...')
 
   // on initial render, retrieve message from backend
   React.useEffect(() => {

@@ -14,7 +14,6 @@ function Login({ dispatch, history }) {
   const [registerPassword, setRegisterPassword] = React.useState('')
 
   const handleSubmit = (event) => {
-
     // prevent page from reloading
     event.preventDefault()
 
@@ -25,6 +24,7 @@ function Login({ dispatch, history }) {
         password,
       }, history))
     } 
+
     // register if in REGISTER mode
     else if (mode === 'REGISTER'){
       dispatch(handleRegisterUser({
@@ -35,6 +35,7 @@ function Login({ dispatch, history }) {
     
   }
 
+  // helper for checking if form submit button is enabled/disabled
   const disableCheck = () => {
     if(mode === 'LOGIN'){
       return username === '' || password === ''
@@ -45,7 +46,6 @@ function Login({ dispatch, history }) {
 
   return (
     <div>
-
       <form onSubmit={handleSubmit}>
         <input
           type="text"
